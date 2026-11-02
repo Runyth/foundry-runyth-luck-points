@@ -1,0 +1,50 @@
+{
+  "id": "luck-points",
+  "title": "Luck Points",
+  "description": "A player resource for self-rolled 1d4 rewards and post-roll improvements to visible d20 rolls.",
+  "version": "1.1.3",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "Runyth"
+    }
+  ],
+  "esmodules": [
+    "scripts/luck-points.mjs"
+  ],
+  "styles": [
+    "styles/luck-points.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "dnd5e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "5.0.0",
+          "verified": "5.3.3"
+        }
+      }
+    ]
+  },
+  "socket": true,
+  "license": "LICENSE",
+  "readme": "README.md",
+  "changelog": "CHANGELOG.md",
+  "media": []
+}
