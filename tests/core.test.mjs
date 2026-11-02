@@ -11,7 +11,7 @@ import {
   normalizePoints,
   rollCapacity,
   validateSpend
-} from "../luck-points/scripts/core.mjs";
+} from "../scripts/core.mjs";
 
 test("point totals are clamped to the configured maximum", () => {
   assert.equal(normalizePoints(-5), 0);
@@ -162,7 +162,7 @@ test("active d20 result ignores discarded dice", () => {
 test("a preserved original d20 remains available after a deterministic fallback", () => {
   const roll = {
     options: {
-      "luck-points": { originalD20: 7 }
+      "runyth-luck-points": { originalD20: 7 }
     },
     dice: []
   };

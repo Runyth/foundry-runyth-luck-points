@@ -32,7 +32,7 @@ globalThis.Hooks = {
 };
 
 test("the Foundry entrypoint loads and registers lifecycle hooks", async () => {
-  await import("../luck-points/scripts/luck-points.mjs");
+  await import("../scripts/luck-points.mjs");
 
   assert.ok(registeredHooks.includes("init"));
   assert.ok(registeredHooks.includes("ready"));
@@ -81,16 +81,16 @@ test("local Luck Point flag changes request a chat refresh so support controls s
     }
   };
   globalThis.foundry.utils.hasProperty = (object, path) => (
-    path === "flags.luck-points" && object?.flags?.["luck-points"] !== undefined
+    path === "flags.runyth-luck-points" && object?.flags?.["runyth-luck-points"] !== undefined
   );
 
   const updateUser = onCallbacks.get("updateUser")?.[0];
   assert.equal(typeof updateUser, "function");
 
-  updateUser({ id: "player-2" }, { flags: { "luck-points": { points: 8 } } });
+  updateUser({ id: "player-2" }, { flags: { "runyth-luck-points": { points: 8 } } });
   assert.equal(renderCount, 1);
 
-  updateUser({ id: "player-3" }, { flags: { "luck-points": { points: 8 } } });
+  updateUser({ id: "player-3" }, { flags: { "runyth-luck-points": { points: 8 } } });
   assert.equal(renderCount, 1);
 });
 
@@ -142,7 +142,7 @@ test("an eligible teammate receives an ally-support button on another player's d
     isGM: false,
     active: true,
     getFlag(moduleId, key) {
-      if (moduleId === "luck-points" && key === "points") return 8;
+      if (moduleId === "runyth-luck-points" && key === "points") return 8;
       return undefined;
     }
   };
@@ -178,7 +178,7 @@ test("an eligible teammate receives an ally-support button on another player's d
     rolls: [roll],
     flags: {},
     getFlag(moduleId, key) {
-      if (moduleId !== "luck-points") return undefined;
+      if (moduleId !== "runyth-luck-points") return undefined;
       if (key === "targetUserId") return roller.id;
       if (key === "applications") return [];
       if (key === "originalTotals") return {};
@@ -243,13 +243,13 @@ test("the GM authority path automatically deducts ally points and persists the 2
     name,
     isGM,
     active: true,
-    flags: { "luck-points": { points } },
+    flags: { "runyth-luck-points": { points } },
     getFlag(moduleId, key) {
       return this.flags[moduleId]?.[key];
     },
     async update(changes) {
       for (const [path, value] of Object.entries(changes)) {
-        if (path === "flags.luck-points.points") this.flags["luck-points"].points = value;
+        if (path === "flags.runyth-luck-points.points") this.flags["runyth-luck-points"].points = value;
       }
       return this;
     }
@@ -278,7 +278,7 @@ test("the GM authority path automatically deducts ally points and persists the 2
     rolls: [originalRoll],
     flags: { dnd5e: { roll: { type: "check" } } },
     getFlag(moduleId, key) {
-      return moduleId === "luck-points" ? messageFlags[key] : undefined;
+      return moduleId === "runyth-luck-points" ? messageFlags[key] : undefined;
     },
     async update(changes) {
       if (changes.rolls) {
@@ -287,14 +287,14 @@ test("the GM authority path automatically deducts ally points and persists the 2
           dice: rollData.dice ?? []
         }));
       }
-      if (changes["flags.luck-points.applications"]) {
-        messageFlags.applications = changes["flags.luck-points.applications"];
+      if (changes["flags.runyth-luck-points.applications"]) {
+        messageFlags.applications = changes["flags.runyth-luck-points.applications"];
       }
-      if (changes["flags.luck-points.originalTotals"]) {
-        messageFlags.originalTotals = changes["flags.luck-points.originalTotals"];
+      if (changes["flags.runyth-luck-points.originalTotals"]) {
+        messageFlags.originalTotals = changes["flags.runyth-luck-points.originalTotals"];
       }
-      if (changes["flags.luck-points.targetUserId"]) {
-        messageFlags.targetUserId = changes["flags.luck-points.targetUserId"];
+      if (changes["flags.runyth-luck-points.targetUserId"]) {
+        messageFlags.targetUserId = changes["flags.runyth-luck-points.targetUserId"];
       }
       return this;
     }
@@ -315,8 +315,8 @@ test("the GM authority path automatically deducts ally points and persists the 2
     system: { id: "dnd5e" },
     settings: {
       get(moduleId, key) {
-        if (moduleId === "luck-points" && key === "dataVersion") return 2;
-        if (moduleId === "luck-points" && key === "announceChanges") return false;
+        if (moduleId === "runyth-luck-points" && key === "dataVersion") return 2;
+        if (moduleId === "runyth-luck-points" && key === "announceChanges") return false;
         return undefined;
       },
       async set() {}
@@ -353,7 +353,7 @@ test("the GM authority path automatically deducts ally points and persists the 2
   assert.equal(typeof ready, "function");
   await ready();
 
-  const socketHandler = socketHandlers.get("module.luck-points");
+  const socketHandler = socketHandlers.get("module.runyth-luck-points");
   assert.equal(typeof socketHandler, "function");
 
   const originalWarn = console.warn;
@@ -374,7 +374,7 @@ test("the GM authority path automatically deducts ally points and persists the 2
     console.warn = originalWarn;
   }
 
-  assert.equal(supporter.flags["luck-points"].points, 3);
+  assert.equal(supporter.flags["runyth-luck-points"].points, 3);
   assert.equal(message.rolls[0].total, 13);
   assert.equal(messageFlags.applications.length, 1);
   assert.deepEqual(
@@ -421,29 +421,29 @@ test("the GM authority path automatically deducts ally points and persists the 2
   const selfResponse = await submit("request-self", roller.id, 5);
   assert.equal(selfResponse.ok, true);
   assert.equal(selfResponse.result.cost, 5);
-  assert.equal(roller.flags["luck-points"].points, 0);
-  assert.equal(supporter.flags["luck-points"].points, 3);
+  assert.equal(roller.flags["runyth-luck-points"].points, 0);
+  assert.equal(supporter.flags["runyth-luck-points"].points, 3);
   assert.equal(message.rolls[0].total, 18);
   assert.equal(messageFlags.applications.length, 2);
 
   // Insufficient supporter points never charge either player.
   const declined = await submit("request-insufficient", supporter.id, 2);
   assert.equal(declined.ok, false);
-  assert.equal(supporter.flags["luck-points"].points, 3);
+  assert.equal(supporter.flags["runyth-luck-points"].points, 3);
   assert.equal(message.rolls[0].total, 18);
 
   const lastAvailable = await submit("request-final", supporter.id, 1);
   assert.equal(lastAvailable.ok, true);
   assert.equal(lastAvailable.result.cost, 2);
-  assert.equal(supporter.flags["luck-points"].points, 1);
+  assert.equal(supporter.flags["runyth-luck-points"].points, 1);
   assert.equal(message.rolls[0].total, 19);
   assert.equal(messageFlags.applications.length, 3);
 
   // Even a player with extra points cannot exceed the shared +10 cap.
-  roller.flags["luck-points"].points = 20;
+  roller.flags["runyth-luck-points"].points = 20;
   const beyondCap = await submit("request-cap", roller.id, 2);
   assert.equal(beyondCap.ok, false);
-  assert.equal(roller.flags["luck-points"].points, 20);
+  assert.equal(roller.flags["runyth-luck-points"].points, 20);
   assert.equal(message.rolls[0].total, 19);
 
   // A fresh natural-one attack cannot be improved by teammates.
@@ -455,6 +455,6 @@ test("the GM authority path automatically deducts ally points and persists the 2
   messageFlags.applications = [];
   const natOne = await submit("request-nat-one", supporter.id, 1);
   assert.equal(natOne.ok, false);
-  assert.equal(supporter.flags["luck-points"].points, 1);
+  assert.equal(supporter.flags["runyth-luck-points"].points, 1);
   assert.equal(message.rolls[0].total, 1);
 });

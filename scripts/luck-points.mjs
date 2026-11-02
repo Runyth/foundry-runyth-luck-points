@@ -12,7 +12,7 @@ import {
   rollCapacity
 } from "./core.mjs";
 
-const MODULE_ID = "luck-points";
+const MODULE_ID = "runyth-luck-points";
 const MODULE_TITLE = "Luck Points";
 const SOCKET_CHANNEL = `module.${MODULE_ID}`;
 const DATA_VERSION = 2;

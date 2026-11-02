@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { activeD20Result } from "../luck-points/scripts/core.mjs";
+import { activeD20Result } from "../scripts/core.mjs";
 
 const hooks = new Map();
 const lifecycle = new Map();
@@ -19,7 +19,7 @@ globalThis.Hooks = {
   on: (name, fn) => hooks.set(name, fn),
   callAll: () => true
 };
-await import("../luck-points/scripts/luck-points.mjs");
+await import("../scripts/luck-points.mjs");
 globalThis.game = { settings: { register() {}, registerMenu() {} } };
 globalThis.ui = { controls: null };
 lifecycle.get("init")();
@@ -57,11 +57,11 @@ globalThis.document = { createElement: (tag) => new Element(tag) };
 function user(id, points = 20, isGM = false) {
   return {
     id, name: id, active: true, isGM,
-    flags: { "luck-points": { points } },
+    flags: { "runyth-luck-points": { points } },
     getFlag(moduleId, key) { return this.flags[moduleId]?.[key]; },
     async update(changes) {
       for (const [key, value] of Object.entries(changes)) {
-        if (key === "flags.luck-points.points") this.flags["luck-points"].points = value;
+        if (key === "flags.runyth-luck-points.points") this.flags["runyth-luck-points"].points = value;
       }
       return this;
     }
@@ -100,7 +100,7 @@ function chat({ roller, rolls, flags = {}, whisper = [], blind = false }) {
     whisper,
     blind,
     getFlag(mod, key) {
-      if (mod !== "luck-points") return undefined;
+      if (mod !== "runyth-luck-points") return undefined;
       if (key === "targetUserId") return roller.id;
       if (key === "applications") return [];
       if (key === "originalTotals") return {};
@@ -187,8 +187,8 @@ test("a whispered or blind private roll never offers teammates a spending button
 });
 
 test("no fake d20 is inferred from null/invalid stored original values", () => {
-  assert.equal(activeD20Result({ options: { "luck-points": { originalD20: null } }, dice: [] }), null);
-  assert.equal(activeD20Result({ options: { "luck-points": { originalD20: 30 } }, dice: [] }), null);
+  assert.equal(activeD20Result({ options: { "runyth-luck-points": { originalD20: null } }, dice: [] }), null);
+  assert.equal(activeD20Result({ options: { "runyth-luck-points": { originalD20: 30 } }, dice: [] }), null);
   assert.equal(activeD20Result({ dice: [{ faces: 20, results: [{ result: null }] }] }), null);
 });
 

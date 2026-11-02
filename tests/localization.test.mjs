@@ -11,16 +11,16 @@ async function readText(path) {
 }
 
 test("German and English localization files expose identical keys", async () => {
-  const german = await readJSON("../luck-points/lang/de.json");
-  const english = await readJSON("../luck-points/lang/en.json");
+  const german = await readJSON("../lang/de.json");
+  const english = await readJSON("../lang/en.json");
 
   assert.deepEqual(Object.keys(german).sort(), Object.keys(english).sort());
 });
 
 test("English is the explicit default package language", async () => {
-  const manifest = await readJSON("../luck-points/module.json");
+  const manifest = await readJSON("../module.json");
 
-  assert.equal(manifest.title, "Luck Points");
+  assert.equal(manifest.title, "Runyth Luck Points");
   assert.match(manifest.description, /^A player resource/);
   assert.deepEqual(manifest.languages[0], {
     lang: "en",
@@ -30,17 +30,17 @@ test("English is the explicit default package language", async () => {
 });
 
 test("runtime source and package metadata contain no hard-coded German UI copy", async () => {
-  const runtime = await readText("../luck-points/scripts/luck-points.mjs");
-  const manifest = await readText("../luck-points/module.json");
+  const runtime = await readText("../scripts/luck-points.mjs");
+  const manifest = await readText("../module.json");
   const combined = `${runtime}\n${manifest}`;
 
   assert.doesNotMatch(combined, /Glückspunkte|Pünktlichkeit|Spielleiter|Würfelwurf|Punktestand/);
 });
 
 test("all localization keys remain namespaced", async () => {
-  const english = await readJSON("../luck-points/lang/en.json");
+  const english = await readJSON("../lang/en.json");
 
   for (const key of Object.keys(english)) {
-    assert.match(key, /^luck-points\./);
+    assert.match(key, /^runyth-luck-points\./);
   }
 });

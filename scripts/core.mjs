@@ -112,7 +112,7 @@ export function evaluateSpend({
 }
 
 export function activeD20Result(roll) {
-  const original = roll?.options?.["luck-points"]?.originalD20;
+  const original = roll?.options?.["runyth-luck-points"]?.originalD20;
   if (original !== null && original !== undefined && original !== "") {
     const preserved = Number(original);
     if (Number.isInteger(preserved) && preserved >= 1 && preserved <= 20) return preserved;

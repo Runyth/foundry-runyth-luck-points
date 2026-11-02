@@ -57,7 +57,7 @@ Jeder andere Nicht-GM-Spieler, der den passenden d20-Wurf sehen kann und genüge
 Entpacke das Installationsarchiv so, dass folgendes Verzeichnis entsteht:
 
 ```text
-<Data>/modules/luck-points/
+<Data>/modules/runyth-luck-points/
 ```
 
 Aktiviere anschließend **Luck Points** in der Modulverwaltung der Welt.
