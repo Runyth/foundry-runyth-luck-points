@@ -2,6 +2,8 @@
 
 ## 1.1.3 — 2026-10-28
 
+- First publication as a Runyth module: `runyth-luck-points` / **Runyth Luck Points** with the publication standard in place — deterministic `-mod`, `-src`, and `-doc` archives with per-version checksums, byte-identical rebuild verification, standard quality and release pipelines, the full GNU AGPL-3.0-or-later licence with the standard source notice, the standard README licence chapter, and the manifest URL surfaces.
+
 ### Fixed
 
 - Restored the **post-D&D5e chat-render hook** alongside Foundry v13's core hook. D&D5e 5.3.3 performs additional HTML processing after core message rendering; controls now survive that late processing and any replacement of the card markup.
