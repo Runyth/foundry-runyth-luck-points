@@ -121,6 +121,10 @@ Then enable **Luck Points** in the world's module management screen.
 - [Foundry VTT v13 `renderChatMessageHTML` hook](https://foundryvtt.com/api/v13/functions/hookEvents.renderChatMessageHTML.html)
 - [D&D Fifth Edition system repository](https://github.com/foundryvtt/dnd5e)
 
+## Content licence
+
+The Luck Points currency rules this module adds are house rules, not official D&D rules; they are homebrew gameplay content licensed **CC BY-SA 4.0**. The program source is **AGPL-3.0-or-later**; see the standard licence chapter below.
+
 ## Licence
 
 Copyright © 2026  [Daniel Braniewski](https://brani.dev/)
