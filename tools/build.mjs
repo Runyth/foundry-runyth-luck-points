@@ -47,11 +47,53 @@ function buildZipEntries(rootName, names) {
   return rows;
 }
 
+function esImportedNames(entryName, entryText) {
+  // carries the entry together with its transitive relative imports so the
+  // browser's runtime import of ./foo.mjs resolves from the installable zip.
+  const closure = new Set([entryName]);
+  const queue = [entryName];
+  while (queue.length) {
+    const current = queue.pop();
+    const absolute = path.join(ROOT, current);
+    if (!existsSync(absolute)) continue;
+    const text = readFileSync(absolute, "utf8");
+    for (const spec of reImportSpecifiers(text)) {
+      if (!spec.startsWith(".")) continue;
+      const resolved = path.normalize(path.join(path.posix.dirname(current), spec));
+      for (const candidate of [resolved, `${resolved}/index.mjs`, `${resolved}/index.js`]) {
+        if (existsSync(path.join(ROOT, candidate)) && !closure.has(candidate)) {
+          closure.add(candidate);
+          queue.push(candidate);
+          break;
+        }
+      }
+    }
+  }
+  return [...closure];
+}
+
+function reImportSpecifiers(text) {
+  const found = [];
+  for (const match of text.matchAll(/(?:from|import)\s+["'](\.[^"'\n]+)["']/g)) {
+    found.push(match[1]);
+  }
+  for (const match of text.matchAll(/import\(["'](\.[^"'\n]+)["']\)/g)) {
+    found.push(match[1]);
+  }
+  return found;
+}
+
 function runtimeNames() {
   const names = ["module.json", "LICENSE", "README.md", ...moduleManifest.esmodules];
   if (moduleManifest.styles) names.push(...moduleManifest.styles);
   if (moduleManifest.languages) {
     for (const language of moduleManifest.languages) names.push(language.path);
+  }
+  for (const script of moduleManifest.esmodules) {
+    const absolute = path.join(ROOT, script);
+    if (existsSync(absolute)) {
+      names.push(...esImportedNames(script, readFileSync(absolute, "utf8")));
+    }
   }
   return names;
 }

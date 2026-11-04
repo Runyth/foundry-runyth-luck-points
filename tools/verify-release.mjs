@@ -11,7 +11,7 @@ import { build } from "./build.mjs";
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const MODULE_ID = "runyth-luck-points";
-const VERSION = "1.1.4";
+const VERSION = "1.1.5";
 
 function fail(message) {
   process.stderr.write(`Verification failed: ${message}\n`);
