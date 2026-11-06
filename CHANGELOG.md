@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 — 2026-11-06
+
+- Long button labels, such as "Grant punctuality to all" in the Game Master
+  panel, now wrap inside the button box instead of escaping it at narrow
+  window widths, and section headings wrap their trailing button.
+- Added narrow-window button containment regressions.
 
 ## 1.2.0 — 2026-11-06
 
