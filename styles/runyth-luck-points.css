@@ -96,6 +96,7 @@
 .luck-points-section-heading {
   justify-content: space-between;
   gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .luck-points label,
@@ -124,6 +125,11 @@
   justify-content: center;
   gap: 0.4rem;
   padding-inline: 0.65rem;
+  /* Long labels, such as "Grant punctuality to all", must wrap inside the
+     button box instead of escaping it when the window is narrow. */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  min-width: 0;
 }
 
 .luck-points button.icon {
