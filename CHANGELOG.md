@@ -1,5 +1,24 @@
 # Changelog
 
+
+## 1.2.0 — 2026-11-06
+
+- The module's windows adopt the fleet-wide design language by default: the
+  Luck Points application and the spend prompt dialog ride the fleet shell
+  with gold headings, gradient buttons, dark field controls, thin scrollbars,
+  and the fleet focus ring, while the earlier stock Foundry styling stays
+  available through a new client setting that is disabled by default; enabling
+  it restores the stock look verbatim.
+- The look is applied at render time: the module mounts its window identity,
+  a `data-runyth-luck-points-window` marker, and the current look directly on
+  the rendered window element, independent of the host's handling of window
+  `classes` options, and module-level window render hooks repeat the mount for
+  every rendered module window. Closing the settings configuration re-syncs
+  all mounted windows in both directions.
+- Added a regression suite for the toggle contract, the render-time mounting,
+  the hook-path sync in both look states, the marker-based re-sync, and
+  fleet-layer CSS scoping keyed on the fleet class alone.
+
 ## 1.1.5 — 2026-11-04
 
 - The installable archive now ships every relative import the manifest entry needs, so the module's buttons and settings register on world load instead of silently failing.
