@@ -79,6 +79,8 @@
   "runyth-luck-points.Settings.AnnounceChanges.Name": "Glückspunkte-Aktionen im Chat ankündigen",
   "runyth-luck-points.Settings.AnnounceChanges.Hint": "Kündigt Freigaben, Einsätze und manuelle Punktestandänderungen zusätzlich im Chat an.",
   "runyth-luck-points.Settings.Open.Name": "Glückspunkte öffnen",
+  "runyth-luck-points.Settings.StockFoundryLook.Name": "Foundry-Standardlook",
+  "runyth-luck-points.Settings.StockFoundryLook.Hint": "Behalte den stock Foundry-Standardlook für die Fenster von Runyth Luck Points. Standardmäßig nutzen sie den flottenweiten Garb & Grime-Look.",
   "runyth-luck-points.Settings.Open.Label": "Glückspunkte verwalten",
   "runyth-luck-points.Settings.Open.Hint": "Öffnet die Spieleransicht und für Spielleiter zusätzlich die Freigabe- und Verwaltungsfunktionen.",
   "runyth-luck-points.SceneControl.Title": "Glückspunkte öffnen",

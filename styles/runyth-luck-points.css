@@ -367,3 +367,76 @@
     flex-direction: column;
   }
 }
+
+/* Fleet UI (default): the Garb & Grime design language, scoped so the stock
+   styling above stays verbatim when the module drops the
+   runyth-luck-points-fleet-ui class. Every rule keys on the fleet class
+   alone: the main application window and the spend prompt dialog carry
+   separate window identities, so compounding with one of them would leave
+   the other on the stock look in every state. */
+.runyth-luck-points-fleet-ui {
+  --lp-accent: #d7ad61;
+  --lp-border: #555d69;
+  --lp-surface: #17191d;
+  --lp-surface-raised: #2b2f36;
+  --lp-text: #f2f3f5;
+  --lp-muted: #c4c9d0;
+}
+
+.runyth-luck-points-fleet-ui .window-header button:hover:not(:disabled),
+.runyth-luck-points-fleet-ui .window-header a:hover,
+.runyth-luck-points-fleet-ui .window-header .window-control:hover,
+.runyth-luck-points-fleet-ui .window-header .header-control:hover {
+  color: var(--lp-text);
+  border-color: #d7ad61;
+}
+
+.runyth-luck-points-fleet-ui .window-content,
+.runyth-luck-points-fleet-ui .luck-points-content {
+  background: linear-gradient(160deg, #16181c, #20242a 65%, #17191d);
+  color: var(--lp-text);
+  scrollbar-width: thin;
+}
+
+.runyth-luck-points-fleet-ui :is(h1, h2) {
+  color: #f0ca82;
+}
+
+.runyth-luck-points-fleet-ui .luck-points-table-wrap th {
+  background: #17191d;
+  color: #f0ca82;
+}
+
+.runyth-luck-points-fleet-ui input,
+.runyth-luck-points-fleet-ui select,
+.runyth-luck-points-fleet-ui textarea {
+  border: 1px solid #68717f;
+  border-radius: 0.3rem;
+  background: #101216;
+  color: var(--lp-text);
+  min-height: 2rem;
+}
+
+.runyth-luck-points-fleet-ui button {
+  border: 1px solid #68717f;
+  border-radius: 0.35rem;
+  background: linear-gradient(#343943, #282c33);
+  color: #f6f7f8;
+}
+
+.runyth-luck-points-fleet-ui button:hover:not(:disabled) {
+  border-color: #d7ad61;
+  background: linear-gradient(#444b57, #31363f);
+  color: var(--lp-text);
+}
+
+.runyth-luck-points-fleet-ui button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.runyth-luck-points-fleet-ui :is(button, input, select, textarea):focus-visible,
+.runyth-luck-points-fleet-ui .window-header .header-control:focus-visible {
+  outline: 2px solid #8ec5ff;
+  outline-offset: 1px;
+}

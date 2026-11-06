@@ -13,6 +13,15 @@ import {
   normalizePoints,
   rollCapacity
 } from "./core.mjs";
+import {
+  applyUiLook,
+  syncOpenWindows,
+  windowClasses
+} from "./ui-look.mjs";
+import {
+  ensureWindowLookHooks,
+  mountWindowIdentity
+} from "./window-look.mjs";
 
 const MODULE_ID = "runyth-luck-points";
 const MODULE_TITLE = "Luck Points";
@@ -652,6 +661,7 @@ async function promptSpendOnRoll(messageId, rollIndex) {
 
     const bonus = await DialogV2.prompt({
       window: { title: localize(spend.kind === "self" ? "SpendDialog.SelfTitle" : "SpendDialog.AllyTitle") },
+      classes: windowClasses(["runyth-luck-points-spend-dialog"]),
       content: `
         <div class="luck-points-dialog">
           <p>${localize(spend.kind === "self" ? "SpendDialog.SelfHint" : "SpendDialog.AllyHint", {
@@ -852,6 +862,11 @@ class LuckPointsApplication extends ApplicationV2 {
     root.innerHTML = this.#renderContent();
     this.#attachListeners(root);
     return root;
+  }
+
+  async _onRender(context, options) {
+    await super._onRender?.(context, options);
+    mountWindowIdentity(this);
   }
 
   _replaceHTML(result, content) {
@@ -1118,6 +1133,15 @@ Hooks.once("init", () => {
     default: 0
   });
 
+  game.settings.register(MODULE_ID, "stockFoundryLook", {
+    name: `${MODULE_ID}.Settings.StockFoundryLook.Name`,
+    hint: `${MODULE_ID}.Settings.StockFoundryLook.Hint`,
+    scope: "client",
+    config: true,
+    type: Boolean,
+    default: false
+  });
+
   game.settings.registerMenu(MODULE_ID, "open", {
     name: `${MODULE_ID}.Settings.Open.Name`,
     label: `${MODULE_ID}.Settings.Open.Label`,
@@ -1126,6 +1150,9 @@ Hooks.once("init", () => {
     type: LuckPointsApplication,
     restricted: false
   });
+
+  Hooks.on("closeSettingsConfig", () => syncOpenWindows());
+  ensureWindowLookHooks();
 
   Hooks.on("getSceneControlButtons", (controls) => {
     if (!game.settings.get(MODULE_ID, "showSceneControl")) return;

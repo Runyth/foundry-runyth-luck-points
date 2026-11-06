@@ -79,6 +79,8 @@
   "runyth-luck-points.Settings.AnnounceChanges.Name": "Announce Luck Points actions in chat",
   "runyth-luck-points.Settings.AnnounceChanges.Hint": "Additionally announces grants, expenditures, and manually set totals in chat.",
   "runyth-luck-points.Settings.Open.Name": "Open Luck Points",
+  "runyth-luck-points.Settings.StockFoundryLook.Name": "Stock Foundry look",
+  "runyth-luck-points.Settings.StockFoundryLook.Hint": "Keep the stock Foundry UI design for the windows of Runyth Luck Points. By default they use the fleet-wide Garb & Grime look.",
   "runyth-luck-points.Settings.Open.Label": "Manage Luck Points",
   "runyth-luck-points.Settings.Open.Hint": "Opens the player view and, for Game Masters, the grant and administration controls.",
   "runyth-luck-points.SceneControl.Title": "Open Luck Points",
