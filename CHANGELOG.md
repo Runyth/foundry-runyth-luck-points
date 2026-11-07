@@ -1,5 +1,15 @@
 # Changelog
 
+
+## 1.2.2 — 2026-11-07
+
+- A roll's support banner now derives its pricing purely from who rolled. Previously, the
+  attribution lookup passed an absent module flag straight into the user resolver, whose
+  default argument made a fresh roll fall back to the acting viewer; the viewer saw their
+  own one-point pricing over a teammate's roll until the first spend stamped the roll's
+  target flag onto the chat card. Fresh rolls now resolve the roller from message
+  authorship, so the doubled ally pricing is correct from the start.
+
 ## 1.2.1 — 2026-11-06
 
 - Long button labels, such as "Grant punctuality to all" in the Game Master

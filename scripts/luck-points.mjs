@@ -311,7 +311,10 @@ function canUserSeeRoll(message, user) {
 
 function resolveRollTargetUser(message) {
   const flaggedUserId = message?.getFlag(MODULE_ID, "targetUserId");
-  const flaggedUser = getUser(flaggedUserId);
+  // An absent module flag must stay absent: getUser() defaults its argument to
+  // the acting user, which would pretend the viewer is the roll's target until
+  // the first spend stamps the flag onto the chat card.
+  const flaggedUser = flaggedUserId ? getUser(flaggedUserId) : null;
   if (flaggedUser && !flaggedUser.isGM) return flaggedUser;
 
   const author = userFromReference(message?.author)

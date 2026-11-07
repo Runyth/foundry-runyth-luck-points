@@ -93,22 +93,25 @@ function roll(result, rollType = "attack") {
   };
 }
 
-function chat({ roller, rolls, flags = {}, whisper = [], blind = false }) {
-  return {
+function chat({ roller, rolls, flags = {}, whisper = [], blind = false, stamped = true }) {
+  const message = {
     id: "chat-roll",
     isContentVisible: true,
     rolls,
     flags: { dnd5e: { roll: { type: "damage" } }, ...flags },
     whisper,
     blind,
+    author: roller,
+    user: roller,
     getFlag(mod, key) {
       if (mod !== "runyth-luck-points") return undefined;
-      if (key === "targetUserId") return roller.id;
+      if (key === "targetUserId") return stamped ? roller.id : undefined;
       if (key === "applications") return [];
       if (key === "originalTotals") return {};
       return undefined;
     }
   };
+  return message;
 }
 
 function mount(message) {
@@ -150,6 +153,27 @@ test("an ally gets a 2:1 control on an already-failed attack, even with mismatch
   assert.match(button.innerHTML, /SpendAlly/);
   assert.match(button.innerHTML, /"maximum":5/);
   assert.match(button.innerHTML, /"ratio":2/);
+});
+
+test("a fresh ally roll prices support double before any spend stamps the attribution flag", () => {
+  const roller = user("roller", 8);
+  const ally = user("ally", 10);
+  gameForUsers(ally, [roller, ally]);
+  const ui = mount(chat({ roller, rolls: [roll(8)], stamped: false }));
+  const button = ui.group.children[0].children[0];
+  assert.match(button.innerHTML, /SpendAlly/);
+  assert.match(button.innerHTML, /"target":"roller"/);
+  assert.match(button.innerHTML, /"ratio":2/);
+});
+
+test("the roller keeps self pricing on a fresh roll before the attribution flag exists", () => {
+  const roller = user("roller", 8);
+  gameForUsers(roller, [roller, user("ally", 10)]);
+  const ui = mount(chat({ roller, rolls: [roll(8)], stamped: false }));
+  const button = ui.group.children[0].children[0];
+  assert.match(button.innerHTML, /SpendSelf/);
+  assert.match(button.innerHTML, /"target":"roller"/);
+  assert.match(button.innerHTML, /"ratio":1/);
 });
 
 test("mixed attack/damage cards classify their rolls individually and do not spend on damage", () => {
