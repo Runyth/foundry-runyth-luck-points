@@ -2,7 +2,7 @@
   "id": "runyth-luck-points",
   "title": "Runyth Luck Points",
   "description": "A player resource for self-rolled 1d4 rewards and post-roll improvements to visible d20 rolls.",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "compatibility": {
     "minimum": "13",
     "verified": "13"
@@ -50,5 +50,5 @@
   "media": [],
   "url": "https://github.com/Runyth/foundry-runyth-luck-points",
   "manifest": "https://github.com/Runyth/foundry-runyth-luck-points/releases/latest/download/module.json",
-  "download": "https://github.com/Runyth/foundry-runyth-luck-points/releases/download/v1.2.1/runyth-luck-points-v1.2.1-mod.zip"
+  "download": "https://github.com/Runyth/foundry-runyth-luck-points/releases/download/v1.2.2/runyth-luck-points-v1.2.2-mod.zip"
 }
