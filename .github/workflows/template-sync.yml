@@ -33,6 +33,11 @@ jobs:
         run: node tools/template-sync.mjs --source ../template
       - name: Run quality gate
         working-directory: module
+        env:
+          # The gate validates the tree before the sync commit is created, so
+          # repository builds that require a clean revision must accept the
+          # pending template changes.
+          RUNYTH_ALLOW_UNCOMMITTED: "1"
         run: |
           npm ci --ignore-scripts
           npm run check
