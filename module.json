@@ -1,24 +1,21 @@
 {
-  "id": "runyth-luck-points",
-  "title": "Runyth Luck Points",
-  "description": "A player resource for self-rolled 1d4 rewards and post-roll improvements to visible d20 rolls.",
-  "version": "1.2.2",
-  "compatibility": {
-    "minimum": "13",
-    "verified": "13"
-  },
   "authors": [
     {
       "name": "Runyth",
       "url": "https://github.com/Runyth"
     }
   ],
+  "changelog": "CHANGELOG.md",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "description": "A player resource for self-rolled 1d4 rewards and post-roll improvements to visible d20 rolls.",
+  "download": "https://github.com/Runyth/foundry-runyth-luck-points/releases/download/v1.2.2/runyth-luck-points-v1.2.2-mod.zip",
   "esmodules": [
     "scripts/luck-points.mjs"
   ],
-  "styles": [
-    "styles/runyth-luck-points.css"
-  ],
+  "id": "runyth-luck-points",
   "languages": [
     {
       "lang": "en",
@@ -31,24 +28,27 @@
       "path": "lang/de.json"
     }
   ],
+  "license": "LICENSE",
+  "manifest": "https://github.com/Runyth/foundry-runyth-luck-points/releases/latest/download/module.json",
+  "media": [],
+  "readme": "README.md",
   "relationships": {
     "systems": [
       {
-        "id": "dnd5e",
-        "type": "system",
         "compatibility": {
           "minimum": "5.0.0",
           "verified": "5.3.3"
-        }
+        },
+        "id": "dnd5e",
+        "type": "system"
       }
     ]
   },
   "socket": true,
-  "license": "LICENSE",
-  "readme": "README.md",
-  "changelog": "CHANGELOG.md",
-  "media": [],
+  "styles": [
+    "styles/runyth-luck-points.css"
+  ],
+  "title": "Runyth Luck Points",
   "url": "https://github.com/Runyth/foundry-runyth-luck-points",
-  "manifest": "https://github.com/Runyth/foundry-runyth-luck-points/releases/latest/download/module.json",
-  "download": "https://github.com/Runyth/foundry-runyth-luck-points/releases/download/v1.2.2/runyth-luck-points-v1.2.2-mod.zip"
+  "version": "1.2.2"
 }

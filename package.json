@@ -1,16 +1,26 @@
 {
-  "name": "runyth-luck-points",
-  "version": "1.2.2",
-  "private": true,
-  "type": "module",
   "engines": {
     "node": ">=22.13.0 <27"
   },
+  "license": "AGPL-3.0-or-later",
+  "name": "runyth-luck-points",
+  "packageManager": "npm@11.16.0",
+  "private": true,
   "scripts": {
-    "test": "node --test tests/*.test.mjs",
-    "check": "node tools/check.mjs && npm test && npm run build && npm run verify:release",
+    "adopt": "node tools/adopt-existing.mjs",
+    "audit": "node tools/audit-foundry.mjs",
+    "bootstrap": "node tools/bootstrap.mjs",
     "build": "node tools/build.mjs",
-    "verify:release": "node tools/verify-release.mjs"
+    "check": "node tools/check.mjs",
+    "format": "node tools/format.mjs --write",
+    "format:check": "node tools/format.mjs --check",
+    "release:assert": "node tools/assert-release-tag.mjs",
+    "template:sync": "node tools/template-sync.mjs",
+    "test": "node --test --test-reporter=spec",
+    "validate": "node tools/validate.mjs",
+    "verify:release": "node tools/verify-release.mjs",
+    "version:set": "node tools/set-version.mjs"
   },
-  "license": "AGPL-3.0-or-later"
+  "type": "module",
+  "version": "1.2.2"
 }

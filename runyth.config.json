@@ -1,0 +1,81 @@
+{
+  "build": {
+    "exclude": [
+      "**/*.map",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/.DS_Store",
+      "**/Thumbs.db"
+    ],
+    "include": [
+      "module.json",
+      "README.md",
+      "CHANGELOG.md",
+      "LICENSE",
+      "scripts/**",
+      "styles/**",
+      "templates/**",
+      "lang/**",
+      "packs/**",
+      "assets/**",
+      "data/**",
+      "fonts/**",
+      "icons/**",
+      "media/**",
+      "sounds/**",
+      "ui/**",
+      "vendor/**"
+    ],
+    "preBuild": [],
+    "sourceExclude": [
+      ".git/**",
+      ".runyth-template-source/**",
+      "dist/**",
+      "node_modules/**",
+      "coverage/**",
+      ".nyc_output/**",
+      ".cache/**",
+      "*.log",
+      ".env",
+      ".env.*",
+      "**/.DS_Store",
+      "**/Thumbs.db"
+    ]
+  },
+  "module": {
+    "kind": "runtime",
+    "publicApi": true,
+    "repository": "Runyth/foundry-runyth-luck-points",
+    "systemNeutral": false
+  },
+  "runtimeKit": {
+    "managed": false
+  },
+  "schemaVersion": 1,
+  "sync": {
+    "exclude": []
+  },
+  "template": {
+    "repository": "Runyth/template-foundry-module",
+    "source": false,
+    "version": "1.1.5"
+  },
+  "validation": {
+    "allowFindings": [
+      {
+        "path": "scripts/luck-points.mjs",
+        "reason": "Audited 2026-11-16: every interpolation is either a module-locale localize() value, a Number derived through clampInteger()/normalizePoints() (integer-clamped), a foundry.utils.randomID(), or wrapped in foundry.utils.escapeHTML(). No unescaped user-controlled string reaches innerHTML.",
+        "rule": "unsafe-inner-html"
+      }
+    ],
+    "forbidPrivateFoundryApis": true,
+    "forbidSourceMaps": true,
+    "requireLocaleParity": true,
+    "requireRepositoryUrls": true,
+    "requireVersionParity": true,
+    "requiredLocales": [
+      "de",
+      "en"
+    ]
+  }
+}
